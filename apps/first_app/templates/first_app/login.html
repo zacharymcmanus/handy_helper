@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login and Registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: auto;
+            width: 1000px;
+        }
+        .login {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 50px;
+        }
+        .newuser {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 10px;
+        }
+        input {
+            height: 70px;
+            width: 450px;
+            font-size: 18px;
+            border-radius: 4px;
+            padding-bottom: 2px;
+            text-align: center;
+        }
+        .blueinput {
+            border: 2px solid #007bff;
+        }
+        .greeninput {
+            border: 2px solid #28a745;
+        }
+        .registertitle {
+            color: #007bff;
+            text-align: center;
+        }
+        .logintitle {
+            color: #28a745;
+            text-align: center;
+        }
+        button {
+            width: 450px;
+            height: 70px;
+            margin-top: 12px;
+        }
+        p {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 22px;
+            text-align: center; 
+        }
+        .maintitle {
+            text-align: center; 
+            color: #6c757d;
+            padding: 35px 0px;
+            font-size: 55px;
+        }
+        .usericon {
+            height: 50px;
+            width: 50px;
+        }
+        .rederrors {
+            color: red;
+            text-align: center;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <h1 class="maintitle">Welcome to Handy Helper!</h1>
+        <div class="newuser">
+            <h1 class="registertitle">Register</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if 'registration_errors' in message.extra_tags %}
+                        <p class="rederrors"> * {{ message }} * </p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <form action="register" method="POST">
+            {% csrf_token %}
+                <p>First Name:</p>
+                <input class="blueinput" type="text" name="first_name" placeholder="First Name"><br>
+                <p>Last Name:</p>
+                <input class="blueinput" type="text" name="last_name" placeholder="Last Name"><br>
+                <p>Email:</p>
+                <input class="blueinput" type="text" name="email" placeholder="Email"><br>
+                <p>Password:</p>
+                <input class="blueinput" type="password" name="password" placeholder="Password"><br>
+                <p>Confirm Password:</p>
+                <input class="blueinput" type="password" name="password_conf" placeholder="Confirm Password"><br>
+                <button name="register" type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+        <div class="login">
+            <h1 class="logintitle">Login</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if 'login_errors' in message.extra_tags %}
+                        <p class="rederrors"> * {{ message }} * </p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            <form action="login" method="POST">
+            {% csrf_token %}
+                <p>Email:</p>
+                <input name="email" class="greeninput" type="text" placeholder="Email"><br>
+                <p>Password:</p>
+                <input name="password" class="greeninput" type="password" placeholder="Password"><br>
+                <button name="Login" type="submit" class="btn btn-success">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
